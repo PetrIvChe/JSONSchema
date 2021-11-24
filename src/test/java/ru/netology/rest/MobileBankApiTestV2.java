@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.equalTo;
 
 class MobileBankApiTestV2 {
     @Test
@@ -22,7 +23,8 @@ class MobileBankApiTestV2 {
                 // .header("Content-Type", "application/json; charset=UTF-8")
                 // специализированные проверки - лучше
                 .contentType(ContentType.JSON)
-                .body(matchesJsonSchemaInClasspath("accounts.schema.json"));
+                .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
+                .body("[0].currency", equalTo("RUR"));
         ;
     }
 }
